@@ -56,7 +56,9 @@
   </head>
 
   <body class="min-h-screen grid grid-rows-[auto_1fr_auto]">
-    {% section 'header' %}
+    <header>
+      {% sections 'header-group' %}
+    </header>
 
     <main role="main">
       {{ content_for_layout }}

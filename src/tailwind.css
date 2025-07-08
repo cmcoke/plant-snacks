@@ -39,3 +39,7 @@
     grid-template-columns: minmax(2rem, 1fr) repeat(10, minmax(min-content, 13rem)) minmax(2rem, 1fr);
   }
 }
+
+.hamburger-toggle {
+  @apply [&>div]:h-0 [&>div]:bg-white [&>div]:before:translate-y-0 [&>div]:before:rotate-45 [&>div]:after:translate-y-0 [&>div]:after:-rotate-45;
+}

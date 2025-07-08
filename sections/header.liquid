@@ -2,4 +2,105 @@
   This section renders a theme's header section
 {% endcomment %}
 
-<header>header</header>
+<nav class="wrapper items-center pt-3 pb-3  bg-[#f4f2f0] relative">
+  {% comment %} mobile hamburger {% endcomment %}
+  <div class="col-start-2 col-end-3 justify-self-start  xl:hidden">
+    <div id="toggleMenu" class="grid place-content-end w-1 h-2 p-11 mx-auto">
+      <div
+        class="w-10 h-1 bg-black rounded-full transition-all duration-150 before:content-[''] before:absolute before:w-10 before:h-1 before:bg-black before:rounded-full before:-translate-y-3 before:transition-all before:duration-150 after:content-[''] after:absolute after:w-10 after:h-1 after:bg-black after:rounded-full after:translate-y-3 after:transition-all after:duration-150"
+      ></div>
+    </div>
+  </div>
+
+  {% comment %} mobile menu links {% endcomment %}
+  <div
+    id="mobileMenu"
+    class="block absolute z-[110] overflow-hidden w-full h-0 transition-all duration-[0.3s] ease-[ease-out] delay-[0.1s] m-0 p-0 left-0 top-full bg-white xl:hidden"
+  >
+    <ul>
+      {% for link in linklists['main-menu'].links %}
+        <li
+          class="
+            lowercase font-averta-semi text-[1.6rem] leading-[2.4rem] tracking-[0.25px] no-underline text-[#312a2c] py-[1.6rem] px-9
+            {% unless forloop.first %} border-t-[#e1dcd6] border-t border-solid min-h-[6rem]  {% endunless %}
+          "
+        >
+          {{ link.title | link_to: link.url }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% comment %} desktop menu links {% endcomment %}
+  <div class="hidden xl:block col-start-2 col-end-5">
+    <ul class="flex gap-12">
+      {% for link in linklists['main-menu'].links %}
+        <li class="lowercase font-averta-semi text-[1.6rem] leading-[2.4rem] tracking-[0.25px] no-underline text-[#312a2c] hover:text-[#598000] transition-all duration-[0.3s] ease-[ease-out]">
+          {{ link.title | link_to: link.url }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% comment %} Logo {% endcomment %}
+  <div class="col-start-4 col-end-9 xl:col-start-6 xl:col-end-8 justify-self-center">
+    <a href="{{ routes.root_url }}">
+      {% if section.settings.store_logo %}
+        <img src="{{ section.settings.store_logo | image_url }}" width="127" height="73" alt="logo">
+      {% else %}
+        <img src="{{ 'PS_Logob5ff.svg' | asset_url}}" width="127" height="73" alt="logo">
+      {% endif %}
+    </a>
+  </div>
+
+  {% comment %} profile & cart icons {% endcomment %}
+  <div class="col-start-11 col-end-12 justify-self-end">
+    <div class="flex gap-8">
+      <div>
+        <a href="{{ routes.account_url }}">
+          {% render 'icon-user' %}
+        </a>
+      </div>
+      <div>
+        <a href="{{ routes.cart_url }}">
+          {% render 'icon-cart' %}
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+{% javascript %}
+  const toggleMenu = document.querySelector('#toggleMenu');
+  const mobileMenu = document.querySelector('#mobileMenu');
+
+  toggleMenu.onclick = () => {
+    const isOpen = toggleMenu.classList.toggle('hamburger-toggle');
+    mobileMenu.classList.toggle('h-[calc(100vh_-_9.6rem)]');
+
+    // Prevent or allow page scroll based on menu state
+    if (isOpen) {
+      document.body.classList.add('overflow-hidden');
+    } else {
+      document.body.classList.remove('overflow-hidden');
+    }
+  };
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "store_logo",
+      "label": "Store logo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header"
+    }
+  ]
+}
+{% endschema %}

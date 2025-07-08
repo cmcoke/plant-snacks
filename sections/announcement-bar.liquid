@@ -1,0 +1,57 @@
+<div style="background-color: {{ section.settings.background_color }};" class="min-h-[3.2rem] px-12 py-[0.8rem]" id="announcement-bar">
+  <div class="wrapper ">
+    <div class="col-start-1 col-end-12 md:col-start-5 md:col-end-10 flex items-center justify-between">
+      <p style="color: {{ section.settings.text_color }};" class="font-averta-semi text-center text-[1.4rem] leading-[1.6rem] tracking-[0.25px]">
+        {{ section.settings.text_content }}
+      </p>
+      <div id="close-btn">
+        {% render 'icon-close' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% javascript %}
+  const closeBtn = document.querySelector('#close-btn');
+  const announcementBar = document.querySelector('#announcement-bar');
+
+  if (localStorage.getItem('announcementBarClosed') === 'true') {
+    announcementBar.classList.add('hidden');
+  }
+
+  closeBtn.addEventListener('click', () => {
+    announcementBar.classList.add('hidden');
+    localStorage.setItem('announcementBarClosed', 'true');
+  });
+{% endjavascript %}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#598000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#f4f2f0"
+    },
+    {
+      "type": "text",
+      "id": "text_content",
+      "label": "Text",
+      "default": "Free standard shipping on all orders over $40"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement bar"
+    }
+  ]
+}
+{% endschema %}
