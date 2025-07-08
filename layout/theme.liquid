@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {% # title, description, etc... %}
+    {% render 'meta-tags' %}
+
+    {{ content_for_header }}
+
+    <style>
+      html {
+        font-size: 0.625rem; /* 0.625rem = 10px */
+      }
+
+      @font-face {
+        font-family: "averta-regular";
+        src: url("{{ 'Averta-Regular.woff2' | asset_url }}") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "averta-bold";
+        src: url("{{ 'Averta-Bold.woff2' | asset_url }}") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "averta-semi-bold";
+        src: url("{{ 'Averta-Semibold.woff2' | asset_url }}") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "carterOne";
+        src: url("{{ 'CarterOne-Regular48ca.woff2' | asset_url }}") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "serialSue";
+        src: url("{{ 'serialSue_15.woff2' | asset_url }}") format("woff2");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+
+    {{ 'styles.css' | asset_url | stylesheet_tag }}
+  </head>
+
+  <body class="min-h-screen grid grid-rows-[auto_1fr_auto]">
+    {% section 'header' %}
+
+    <main role="main">
+      {{ content_for_layout }}
+    </main>
+
+    {% section 'footer' %}
+  </body>
+</html>

@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .font-averta {
+    font-family: averta-regular, sans-serif;
+  }
+  .font-averta-bold {
+    font-family: averta-bold, sans-serif;
+  }
+  .font-averta-semi {
+    font-family: averta-semi-bold, sans-serif;
+  }
+  .font-carter {
+    font-family: carterOne, cursive;
+  }
+  .font-sue {
+    font-family: serialSue, cursive;
+  }
+}
+
+@layer utilities {
+  .wrapper {
+    display: grid;
+    /* 
+      Define the grid columns for the layout:
+
+      - minmax(2rem, 1fr): Adds flexible padding on the left side. 
+        Ensures the first column is at least 2rem wide but can grow up to a full fractional unit (1fr) of the available space.
+      
+      - repeat(10, minmax(min-content, 13rem)): Creates 10 equally sized columns.
+        Each column:
+          - Has a minimum width of `min-content` (shrink to fit its content).
+          - Has a maximum width of 13rem.
+            - The 13rem value is derived from dividing a target layout width (e.g. 1330px) by 10 columns.
+            - Assuming the root font size is 10px, 13rem = 130px (approx. 1330 / 10).
+      
+      - minmax(2rem, 1fr): Adds flexible padding on the right side, similar to the left.
+    */
+    grid-template-columns: minmax(2rem, 1fr) repeat(10, minmax(min-content, 13rem)) minmax(2rem, 1fr);
+  }
+}
